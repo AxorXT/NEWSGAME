@@ -3,13 +3,26 @@ using UnityEngine;
 public class SectionManager : MonoBehaviour
 {
     [Header("Paneles de las secciones")]
+    public GameObject newsPanel;
     public GameObject preciosPanel;
     public GameObject gananciaPanel;
     public GameObject inversionPanel;
+    public GameObject chatPanel;
 
     private void Start()
     {
-        MostrarPrecios();
+        NewsPanel();
+    }
+
+    public void ChatPanel()
+    {
+        OcultarTodos();
+        chatPanel.SetActive(true);
+    }
+    public void NewsPanel()
+    {
+        OcultarTodos();
+        newsPanel.SetActive(true);
     }
 
     public void MostrarPrecios()
@@ -35,5 +48,7 @@ public class SectionManager : MonoBehaviour
         preciosPanel.SetActive(false);
         gananciaPanel.SetActive(false);
         inversionPanel.SetActive(false);
+        newsPanel.SetActive(false);
+        chatPanel.SetActive(false);
     }
 }
