@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class SectionManager : MonoBehaviour
@@ -9,9 +10,21 @@ public class SectionManager : MonoBehaviour
     public GameObject inversionPanel;
     public GameObject chatPanel;
 
+    public StoreGameManager store;
+    public TMP_Text dineroTexto;
+
     private void Start()
     {
         NewsPanel();
+
+        if (store == null || dineroTexto == null)
+        {
+            Debug.LogError("Asigna StoreGameManager y DineroTexto.");
+            return;
+        }
+
+        store.OnStoreUpdated += ActualizarDinero;
+        ActualizarDinero();
     }
 
     public void ChatPanel()
@@ -50,5 +63,16 @@ public class SectionManager : MonoBehaviour
         inversionPanel.SetActive(false);
         newsPanel.SetActive(false);
         chatPanel.SetActive(false);
+    }
+
+    private void ActualizarDinero()
+    {
+        dineroTexto.text = $"Dinero: ${store.money:N0}";
+    }
+
+    private void OnDestroy()
+    {
+        if (store != null)
+            store.OnStoreUpdated -= ActualizarDinero;
     }
 }
